@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link href="./assets/css/monokai.css" rel="stylesheet" type="text/css">
+        <link href="./assets/css/main.css" rel="stylesheet">
+        <title>Edit</title>
+    </head>
+    <body>
+        <input type="button" id="down" value="Download">
+        <div id="pe">
+        	<code class="textEditor">
+            	<pre class="textEditor" id="pre" contenteditable="true" onkeypress="return highLight(this, event)"></pre>
+            </code>
+        </div>
+        <script type="text/javascript" src="./Frontend/highlight.js"></script>
+        <script type="text/javascript" src="./Backend/files.js"></script>
+        <script type="text/javascript" src="./Backend/socket.js"></script>
+    </body>
+</html>

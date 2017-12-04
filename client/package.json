@@ -1,0 +1,16 @@
+{
+  "name": "editor",
+  "version": "1.0.0",
+  "description": "Editor de codigo hecho en html",
+  "main": "index.js",
+  "scripts": {
+    "dev": "electron src/index.js"
+  },
+  "author": "PERC",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^1.7.9",
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4"
+  }
+}
