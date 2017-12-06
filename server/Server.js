@@ -1,10 +1,16 @@
-var app  = require('express')()
-var server = require('http').createServer()
-var io = require('socket.io')(server)
-
-server.listen(8080, () => {
-    console.log('listening');
+//const app  = require('express')()
+const server = require('http').createServer()
+const io = require('socket.io')(server)
+let tmpSocks = [];
+server.listen(8080)
+io.on('connection', (socket) => {
+    tmpSocks.push(socket)
+    socket.on('fileEdited', packet => {
+        retransmit(packet.cont);
+    })
 })
-io.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
-});
+function retransmit(cont){
+    tmpSocks.forEach(s => {
+        s.emit('fileUpdated', {cont : cont})
+    })
+}
