@@ -4,10 +4,13 @@ socket.on('connect', () => {
 })
 socket.on('fileUpdated', packet => {
     var pre = document.getElementById("pre")
-    saveCaret(pre)
+    saveCaret()
+    console.log('Recibido');
+    console.log(packet);
     pre.innerHTML = packet.cont
-    restoreCaret(pre)
+    restoreCaret()
 })
-document.getElementById("pre").addEventListener('change',() => {
-    socket.emit('fileEdited', {cont : document.getElementById('pre').innerHTML})
+document.getElementById("pre").addEventListener('keyup',() => {
+    //console.log("Enviando datos");
+    //socket.emit('fileEdited', {cont : document.getElementById('pre').innerHTML})
 })

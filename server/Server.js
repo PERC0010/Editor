@@ -4,6 +4,7 @@ const io = require('socket.io')(server)
 let tmpSocks = [];
 server.listen(8080)
 io.on('connection', (socket) => {
+    console.log("Alguien se conectó");
     tmpSocks.push(socket)
     socket.on('fileEdited', packet => {
         retransmit(packet.cont);
