@@ -10,7 +10,12 @@ socket.on('fileUpdated', packet => {
     pre.innerHTML = packet.cont
     restoreCaret()
 })
-document.getElementById("pre").addEventListener('keyup',() => {
-    //console.log("Enviando datos");
-    //socket.emit('fileEdited', {cont : document.getElementById('pre').innerHTML})
+document.getElementById("pre").addEventListener('input',(e) => {
+    
+    txt = highlight(getText(document.getElementById('pre')))
+    console.log("Enviando datos", txt);
+    saveCaret();
+    e.srcElement.innerHTML = txt
+    restoreCaret();
+    //socket.emit('fileEdited', {cont : txt})
 })
