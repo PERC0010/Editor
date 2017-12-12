@@ -55,24 +55,39 @@ var caretIn = 0;
 var caretCont;
 function highlight(text){
     var out = text;
-    console.log('Antes', out);
+    var classes = {};
+    var matches = [];
 	patterns.forEach(pat => {
-			out = out.replace(pat.pattern, (match) => {
-                console.log('Replacing',`<span class='${pat.name}'> ${match} </span>`);
-                return `<span class='${pat.name}'> ${match} </span>`;
-            });
-	});
+        var match = out.match(pat.pattern);
+        match = match == null ? '' : match;
+        for(var i = 0; i < match.length; i++){
+            matches.push(match[i]);
+            classes[match[i]] = pat.name;
+        }
+        if(match.length < 0){
+            matches.push(match);
+            classes[match] = pat.name;
+        }
+    });
+    if(matches.length > 0){
+        matches = matches.join('|');
+        out = out.replace(new RegExp(matches, 'g'), (match) => {
+            return `<span class='${classes[match]}'>${match}</span>`;
+        });
+    }
     //sendCrtCont();
-    console.log('Despues', out);
 	return out;
 }
 function getText(node){
-	//console.log(node);
-    return (node && node.innerHTML) ? node.innerHTML.replace(/<div><br><\/div>/, '\n')
-    .replace(/<div>/, '\n')
-    .replace(/\<[^\<\>]+\>/g, '')
-    .replace(/\&lt\;/, '<')
-    .replace(/\&gt\;/, '>'): node;
+    if(node.innerHTML || node.innerHTML == ""){
+        return node.innerHTML.replace(/<div><br><\/div>/, '\n')
+        .replace(/<div>/, '\n')
+        .replace(/\<[^\<\>]+\>/g, '')
+        .replace(/\&lt\;/, '<')
+        .replace(/\&gt\;/, '>');
+    }else{
+        return node;
+    }
 }
 function saveCaret(){
 	var node = document.getElementById('pre');
@@ -92,17 +107,31 @@ function saveCaret(){
 }
 function restoreCaret(){
 	var node = document.getElementById('pre');
-	var index = 0;
+    var index = 0;
+    var crtN;
 	for(var i = 0; i < node.childNodes.length; i++){
-		for(var j = 0; j < getText(node.childNodes[i]).length; j++){
+		for(var j = 0; j < node.childNodes[i].textContent.length; j++){
+            crtN = node.childNodes[i];
 			if(index == caretIn){
 				var selec = window.getSelection();
 				selec.removeAllRanges();
-				var ran = new Range();
-				ran.setStart(node.childNodes[i], j);
-				selec.addRange(ran);
+                var ran = new Range();
+                console.log('Set',crtN, j);
+				ran.setStart(crtN, j);
+                selec.addRange(ran);
 			}
 			index++;
 		}
-	}
+    }
+    if(index <= caretIn){
+        var selec = window.getSelection();
+        selec.removeAllRanges();
+        var ran = new Range();
+        if(crtN){
+            ran.setStart(crtN, crtN.length);
+        }else{
+            ran.setStart(node, 0);
+        }
+        selec.addRange(ran);
+    }
 }

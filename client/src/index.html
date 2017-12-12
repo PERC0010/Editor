@@ -7,14 +7,26 @@
         <title>Edit</title>
     </head>
     <body>
-        <input type="button" id="down" value="Download">
-        <div id="pe">
-        	<code class="textEditor">
-            	<pre class="textEditor" id="pre" contenteditable="true"></pre>
+        <div id='sideNav' class='sideNav'>
+            <div id='userDiv'>
+
+            </div>
+            <div id='projectDiv'>
+                <div class='toolTip addBtn'>
+                    <input class='addBtn' type="button" value="+" onclick="createProject()"><span class='toolTipText'>Generar un nuevo proyecto</span>
+                </div>
+                
+            </div>
+        </div>
+        <!-- <input type="button" id="down" value="Download"> -->
+        <div class="textEditor">
+            <code>
+                <pre id="pre" contenteditable="true"></pre>
             </code>
         </div>
+        <script type="text/javascript" src="./Frontend/menus.js"></script>
         <script type="text/javascript" src="./Frontend/textManager.js"></script>
-        <script type="text/javascript" src="./Backend/files.js"></script>
         <script type="text/javascript" src="./Backend/socket.js"></script>
+        <script type="text/javascript" src="./Backend/files.js"></script>
     </body>
 </html>

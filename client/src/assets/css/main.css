@@ -1,13 +1,60 @@
-body{
+html, body{
 	width: 100%;
 	height: 100%;
 	background-color: #272822;
-
+	overflow-x: hidden;
+}
+html{
+	overflow: hidden;
+}
+.sideNav{
+	position: fixed;
+	width: 25%;
+	height: calc(100% - 20px);
+	background-color: #2f3136;
+	color: #707174;
+	border-radius: 10px;
 }
 .textEditor{
-	width: 90%;
-	height: 100%;
+	width: calc(75% - 30px);
+	/* height: calc(100% - 20px); */
+	min-height: calc(100% - 20px);
 	background-color: #3e3f39;
 	color: #fff;
 	border-radius: 10px;
+	margin-left: calc(25% + 10px);
+}
+code, pre{
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+}
+.addBtn{
+	background-color:#373833;
+	color:#5e5f5c;
+	border-radius: 20px;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+}
+.collapsible .collapsible{
+	display: none;
+	margin-left: 5px;
+	width: calc(100% - 10px);
+}
+.toolTip .toolTipText {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgb(61, 59, 59);
+    color: rgb(221, 218, 218);
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    top: -5px;
+    left: 0%;
+    position: absolute;
+	z-index: 1;
+}
+.toolTip:hover .toolTipText{
+	visibility: visible;
 }
